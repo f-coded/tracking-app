@@ -1,15 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-require('dotenv').config(); // Load environment variables
 
 const app = express();
 
 app.use(cors());
 app.use(express.json()); // Middleware to parse JSON
 
-// Default route to handle root requests
-app.get('/api/', (req, res) => {
+app.get('/', (req, res) => {
     res.send('Welcome to the Tracking API');
 });
 
@@ -33,7 +31,7 @@ const TrackingSchema = new mongoose.Schema({
 const TrackingData = mongoose.model('TrackingData', TrackingSchema);
 
 // Route to get events by trackingId
-app.get('/api/track/:trackingId', async (req, res) => {
+app.get('/track/:trackingId', async (req, res) => {
     const { trackingId } = req.params;
 
     try {
@@ -50,11 +48,14 @@ app.get('/api/track/:trackingId', async (req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 5000; // Use PORT from .env or default to 5000
+const PORT = process.env.PORT || 5000;
 
-const uri = process.env.MONGODB_URI; // Use MongoDB URI from .env
 
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+
+// Directly use the MongoDB URI in the code
+const uri = 'mongodb+srv://Fcodes:connected@tracking-system-cluster.4ii4y.mongodb.net/?retryWrites=true&w=majority';
+
+mongoose.connect(uri)
     .then(() => console.log('Connected to MongoDB Atlas'))
     .catch((error) => console.error('Database connection error:', error));
 
