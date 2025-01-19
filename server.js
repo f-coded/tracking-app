@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json()); // Middleware to parse JSON
 
 // Default route to handle root requests
-app.get('/', (req, res) => {
+app.get('/api/', (req, res) => {
     res.send('Welcome to the Tracking API');
 });
 
@@ -33,7 +33,7 @@ const TrackingSchema = new mongoose.Schema({
 const TrackingData = mongoose.model('TrackingData', TrackingSchema);
 
 // Route to get events by trackingId
-app.get('/track/:trackingId', async (req, res) => {
+app.get('/api/track/:trackingId', async (req, res) => {
     const { trackingId } = req.params;
 
     try {
