@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+require('dotenv').config(); // Load environment variables from .env
 
 const app = express();
 
@@ -50,10 +51,8 @@ app.get('/track/:trackingId', async (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 
-
-
-// Directly use the MongoDB URI in the code
-const uri = 'mongodb+srv://Fcodes:connected@tracking-system-cluster.4ii4y.mongodb.net/?retryWrites=true&w=majority';
+// Use MONGODB_URI from .env
+const uri = process.env.MONGODB_URI;
 
 mongoose.connect(uri)
     .then(() => console.log('Connected to MongoDB Atlas'))
